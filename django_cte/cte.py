@@ -46,9 +46,9 @@ class CTE:
     """
     VERSION = 1
 
-    def __init__(self, queryset, name="cte", materialized=None):
+    def __init__(self, queryset, name=None, materialized=None):
         self._set_queryset(queryset)
-        self.name = name
+        self.name = name or "cte"
         self.col = CTEColumns(self)
         self.materialized = materialized
 
@@ -82,7 +82,7 @@ class CTE:
         self._iterable_class = getattr(queryset, "_iterable_class", ValuesIterable)
 
     @classmethod
-    def recursive(cls, make_cte_queryset, name="cte", materialized=None):
+    def recursive(cls, make_cte_queryset, name=None, materialized=None):
         """Recursive Common Table Expression
 
         :param make_cte_queryset: Function taking a single argument (a
